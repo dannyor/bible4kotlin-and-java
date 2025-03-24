@@ -1,0 +1,24 @@
+plugins {
+    id 'proj.kotlin-common-conventions'
+    id 'java-library'
+    id 'maven-publish'
+}
+
+
+
+publishing {
+    publications {
+        mainPub(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = "https://maven.pkg.github.com/dannyor/tnc"
+            credentials {
+                username = System.getenv("SIM_GPR_USER") ?: gpr_user
+                password = System.getenv("SIM_GPR_TOKEN") ?: gpr_key
+            }
+        }
+    }
+}

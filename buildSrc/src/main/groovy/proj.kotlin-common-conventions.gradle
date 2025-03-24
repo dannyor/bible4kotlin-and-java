@@ -1,0 +1,27 @@
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = "dnl.bible"
+
+dependencies {
+    implementation "org.apache.commons:commons-lang3:3.12.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_json_version"
+}
+
+testing {
+    suites {
+        test {
+            useKotlinTest()
+        }
+    }
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+}
