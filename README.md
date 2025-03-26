@@ -23,3 +23,15 @@ val firstVerseOfFirstChapter = bereshit1stChapter.getVerse(1)
 // or by operators
 val firstOfFirstAgain = bereshit[1][1]
 ```
+
+### Locations
+Class ```VerseLocation``` is a convenient way of serializing (storing or communicating) 
+the location of a specific verse. 
+```kotlin
+// getting the location of a verse
+val verse = bible.getBook(BibleBook.GENESIS)[1][3]
+val location = verse.getLocation()
+
+// using a location to access a Verse
+val sameVerse = bible.getVerse(VerseLocation(BibleBook.GENESIS, 1, 3))
+```
