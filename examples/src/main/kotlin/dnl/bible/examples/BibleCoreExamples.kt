@@ -31,13 +31,14 @@ fun locations() {
 fun ranges() {
     val parashatBereshit = VerseRangeFactory.newVerseRange("Genesis 1:1–6:8")
 }
+
 fun iterators() {
     // iterating a whole book
     val verseIterator = bible.getBook(BibleBook.DANIEL).verseIterator()
 
     // iterating a range
     val range = VerseRangeFactory.newVerseRange("Genesis 1:1–6:8")
-    val iteratorFromRange =VerseRangeIterator(range)
+    val iteratorFromRange = VerseRangeIterator(range)
 
     // performing the iteration
     verseIterator.forEach {

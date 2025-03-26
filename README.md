@@ -2,7 +2,7 @@
 A Bible API for JVM languages
 
 ## bible-core
-Automatically loads json bible. ([json-hebrew-bible](https://github.com/dannyor/json-hebrew-bible))
+Automatically loads a json bible. ([json-hebrew-bible](https://github.com/dannyor/json-hebrew-bible))
 
 Provides basic API for accessing bible books, chapters, verses and the words in verses.
 
@@ -48,12 +48,12 @@ val parashatBereshit = VerseRangeFactory.newVerseRange("Genesis 1:1–6:8")
 ### Iterators
 The way to work and process a bulk of verses is using
 ```kotlin
-    // iterating a whole book
+// iterating a whole book
 val verseIterator = bible.getBook(BibleBook.DANIEL).verseIterator()
 
 // iterating a range
 val range = VerseRangeFactory.newVerseRange("Genesis 1:1–6:8")
-val iteratorFromRange =VerseRangeIterator(range)
+val iteratorFromRange = VerseRangeIterator(range)
 
 // performing the iteration
 verseIterator.forEach {
@@ -61,7 +61,21 @@ verseIterator.forEach {
 }
 ```
 
-## bible-queries
+# bible-queries
+This project provides:
+- Means to traverse verses or words
+- Implementations of common or interesting queries
+
+```kotlin
+// Get all verses in the bible starting with the letter 'ל'
+val visitor = GenericVerseVisitorWithResults { verse: Verse ->
+    val text = verse.getText()
+    text.startsWith('ל')
+}
+
+VerseTraversal(bible.verseIterator()).traverse(visitor)
+val results = visitor.getGroupedResults()
+```
 
 
 
