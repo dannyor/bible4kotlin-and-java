@@ -18,7 +18,7 @@ interface Bible {
     }
 
     fun getVerseRange(verseRange: VerseRange): Iterator<Verse> {
-        return VerseRangeIterator(getBook(verseRange.start.book), verseRange)
+        return VerseRangeIterator(verseRange)
     }
 }
 
@@ -35,13 +35,14 @@ interface Book {
      * Gets a chapter by a (1 based) index. That is, first chapter index is 1.
      */
     fun getChapter(index: Int): Chapter
+    operator fun get(index: Int): Chapter = getChapter(index)
 
     fun getVerse(location: VerseLocation): Verse {
         return getChapter(location.chapterIndex).getVerse(location.verseIndex)
     }
 
     fun getVerseRange(verseRange: VerseRange): Iterator<Verse> {
-        return VerseRangeIterator(this, verseRange)
+        return VerseRangeIterator(verseRange)
     }
 
     /**
@@ -50,7 +51,7 @@ interface Book {
     fun asVerseRange(): VerseRange
 
     fun getIterator(): Iterator<Verse> {
-        return VerseRangeIterator(this, asVerseRange())
+        return VerseRangeIterator(asVerseRange())
     }
 
     fun lastChapter(): Chapter = getChapter(getNumOfChapters())
@@ -71,6 +72,7 @@ interface Chapter {
     fun getVerse(index: Int): Verse
 
     fun asVerseRange(): VerseRange
+    operator fun get(index: Int): Verse = getVerse(index)
 }
 
 interface Verse {
@@ -80,6 +82,7 @@ interface Verse {
     fun getWords(directive: TextDirective = TextDirective.SIMPLE): List<String>
     fun getText(directive: TextDirective = TextDirective.SIMPLE): String
     fun getLocation(): VerseLocation
+    operator fun get(index: Int): String = getWords()[index]
 }
 
 

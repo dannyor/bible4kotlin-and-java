@@ -1,5 +1,7 @@
 package dnl.bible.api
 
+import dnl.bible.json.bible
+
 
 interface LocationListener {
     fun onVerse(verse: Verse) {}
@@ -81,7 +83,9 @@ class FullBibleVerseIterator(
     }
 }
 
-class VerseRangeIterator(private val book: Book, private val range: VerseRange) : Iterator<Verse> {
+class VerseRangeIterator(
+    private val range: VerseRange
+) : Iterator<Verse> {
     private lateinit var current: Verse
 
     override fun hasNext(): Boolean {
@@ -93,7 +97,7 @@ class VerseRangeIterator(private val book: Book, private val range: VerseRange) 
 
     override fun next(): Verse {
         current = if (!this::current.isInitialized) {
-            book.getVerse(range.start)
+            bible.getVerse(range.start)
         } else {
             if (isAtChapterEnd()) {
                 // first verse of next chapter
@@ -163,7 +167,7 @@ class CharacterIterator(
     private fun currentWord() = currentVerseWords[wordIndex]
     override fun next(): Char {
         val isLastCharInWord = charIndex == currentWord().length - 1
-        val isLastWord = wordIndex == currentVerseWords.size-1
+        val isLastWord = wordIndex == currentVerseWords.size - 1
         val isLastCharInVerse = isLastWord && isLastCharInWord
         if (wordIndex == 0 && charIndex == 0) { // start of verse
             onVerse(currentVerse)

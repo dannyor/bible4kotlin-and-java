@@ -1,0 +1,7 @@
+plugins {
+    id 'proj.kotlin-common-conventions'
+}
+
+dependencies {
+    implementation project(':bible-queries')
+}

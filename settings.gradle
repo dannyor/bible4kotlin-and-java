@@ -1,3 +1,3 @@
 rootProject.name = 'bible4kotlin-and-java'
-include('bible-core', 'bible-queries')
+include('bible-core', 'bible-queries', 'examples')
 
