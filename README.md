@@ -35,3 +35,35 @@ val location = verse.getLocation()
 // using a location to access a Verse
 val sameVerse = bible.getVerse(VerseLocation(BibleBook.GENESIS, 1, 3))
 ```
+
+### Ranges
+A ```VerseRange``` points to a range of verses that may span several verses
+chapters and even books.
+Good example of this is the notion of a 'parasha' that usually 
+spans several chapters and commonly starting and ending in between.
+```kotlin
+val parashatBereshit = VerseRangeFactory.newVerseRange("Genesis 1:1–6:8")
+```
+
+### Iterators
+The way to work and process a bulk of verses is using
+```kotlin
+// iterating a whole book
+val verseIterator = bible.getBook(BibleBook.DANIEL).verseIterator()
+
+// iterating a range
+val range = VerseRangeFactory.newVerseRange("Genesis 1:1–6:8")
+val iteratorFromRange = VerseRangeIterator(range)
+
+// performing the iteration
+verseIterator.forEach {
+    println("at verse: $it")
+}
+```
+
+
+
+
+
+
+
