@@ -10,7 +10,7 @@ fun String.toFinalChars(): String {
 
 fun String.lastHebCharToFinal(): String {
     if (last().isHebFinalLetter()) return this
-    return substring(0, lastIndex - 1) + last()
+    return substring(0, lastIndex) + last().toHebFinal()
 }
 
 fun String.hasHebFinalChars(): Boolean {

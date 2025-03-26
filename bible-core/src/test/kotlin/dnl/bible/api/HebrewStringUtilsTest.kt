@@ -23,7 +23,7 @@ class HebrewStringUtilsTest {
 
     @Test
     fun testLastCharToFinal(){
-        assertEquals("דן", "דנ".toFinalChars())
+        assertEquals("דן", "דנ".lastHebCharToFinal())
     }
 
     @Test
