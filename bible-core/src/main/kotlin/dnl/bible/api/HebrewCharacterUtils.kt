@@ -4,64 +4,6 @@ package dnl.bible.api
 
 import dnl.bible.api.HebrewChars.*
 
-class HebrewCharacterUtils {
-    companion object {
-        fun isHebrewChar(char: Char): Boolean {
-            return char.code in 0x590..0x5F4
-        }
-
-        fun isHebrewLetter(char: Char): Boolean {
-            return char.code in 0x5D0..0x5EA
-        }
-
-        fun isHebrewPunctuation(char: Char): Boolean {
-            return char.code in 0x5B0..0x5BC || char.code in arrayOf(0x5C1, 0x5C2, 0x5C7, 0x5F3, 0x5F4)
-        }
-
-        fun isFinalLetter(char: Char): Boolean {
-            return char in arrayOf(FINAL_PE.char, FINAL_KAF.char, FINAL_MEM.char, FINAL_TSADI.char, FINAL_NUN.char)
-        }
-
-        fun isMNZPH(char: Char): Boolean {
-            return char in arrayOf(MEM.char, NUN.char, TSADI.char, PE.char, KAF.char)
-        }
-
-        fun toFinal(char: Char): Char {
-            if (isFinalLetter(char))
-                return char
-            return when (char) {
-                PE.char -> FINAL_PE.char
-                KAF.char -> FINAL_KAF.char
-                MEM.char -> FINAL_MEM.char
-                TSADI.char -> FINAL_TSADI.char
-                NUN.char -> FINAL_NUN.char
-                else -> {
-                    char
-                }
-            }
-        }
-
-        fun toNonFinal(char: Char): Char {
-            if (!isFinalLetter(char))
-                return char
-            return when (char) {
-                FINAL_PE.char -> PE.char
-                FINAL_KAF.char -> KAF.char
-                FINAL_MEM.char -> MEM.char
-                FINAL_TSADI.char -> TSADI.char
-                FINAL_NUN.char -> NUN.char
-                else -> {
-                    char
-                }
-            }
-        }
-    }
-}
-
-fun main() {
-    println(HebrewCharacterUtils.isHebrewChar('\u0591'))
-}
-
 @Suppress("SpellCheckingInspection")
 enum class HebrewChars(val char: Char) {
     ACCENT_ETNAH('\u0591'),
@@ -156,3 +98,55 @@ enum class HebrewChars(val char: Char) {
 }
 
 fun Char.getUnicode() = String.format("u+%04x", this.code).uppercase()
+
+
+fun Char.isHebrewChar(): Boolean {
+    return this.code in 0x590..0x5F4
+}
+
+fun Char.isHebrewLetter(): Boolean {
+    return this.code in 0x5D0..0x5EA
+}
+
+fun Char.isHebrewPunctuation(): Boolean {
+    return this.code in 0x5B0..0x5BC || this.code in arrayOf(0x5C1, 0x5C2, 0x5C7, 0x5F3, 0x5F4)
+}
+
+
+fun Char.isMNZPH(): Boolean {
+    return this in arrayOf(MEM.char, NUN.char, TSADI.char, PE.char, KAF.char)
+}
+
+fun Char.isHebFinalLetter(): Boolean {
+    return this in arrayOf(FINAL_PE.char, FINAL_KAF.char, FINAL_MEM.char, FINAL_TSADI.char, FINAL_NUN.char)
+}
+
+fun Char.toNonFinal(): Char {
+    if (!isHebFinalLetter())
+        return this
+    return when (this) {
+        FINAL_PE.char -> PE.char
+        FINAL_KAF.char -> KAF.char
+        FINAL_MEM.char -> MEM.char
+        FINAL_TSADI.char -> TSADI.char
+        FINAL_NUN.char -> NUN.char
+        else -> {
+            this
+        }
+    }
+}
+
+fun Char.toHebFinal(): Char {
+    if (isHebFinalLetter())
+        return this
+    return when (this) {
+        PE.char -> FINAL_PE.char
+        KAF.char -> FINAL_KAF.char
+        MEM.char -> FINAL_MEM.char
+        TSADI.char -> FINAL_TSADI.char
+        NUN.char -> FINAL_NUN.char
+        else -> {
+            this
+        }
+    }
+}

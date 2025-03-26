@@ -1,0 +1,14 @@
+plugins {
+    id 'proj.kotlin-library-conventions'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.10'
+}
+
+dependencies {
+    api project(':bible-core')
+    //testImplementation project(':tests-common')
+    implementation "commons-io:commons-io:$commons_io_version"
+    implementation "com.google.guava:guava:$guava_version"
+    implementation "org.slf4j:slf4j-api:$slf4j_version"
+
+}
+
