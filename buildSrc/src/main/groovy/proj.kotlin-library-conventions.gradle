@@ -14,7 +14,7 @@ publishing {
     }
     repositories {
         maven {
-            url = "https://maven.pkg.github.com/dannyor/tnc"
+            url = "https://maven.pkg.github.com/dannyor/bible4kotlin-and-java"
             credentials {
                 username = System.getenv("SIM_GPR_USER") ?: gpr_user
                 password = System.getenv("SIM_GPR_TOKEN") ?: gpr_key

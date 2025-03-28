@@ -66,6 +66,7 @@ This project provides:
 - Means to traverse verses or words
 - Implementations of common or interesting queries
 
+Example of Verse Traversal:
 ```kotlin
 // Get all verses in the bible starting with the letter 'ל'
 val visitor = GenericVerseVisitorWithResults { verse: Verse ->
@@ -77,6 +78,15 @@ VerseTraversal(bible.verseIterator()).traverse(visitor)
 val results = visitor.getGroupedResults()
 ```
 
+Example of Word Traversal:
+```kotlin
+// look for the words that have the gematria of a given word
+val gematriaOfRootWord = Gematria.gematriaOf("אמן")
+val visitor = GenericWordVisitorWithResults { word: String ->
+    Gematria.gematriaOf(word) == gematriaOfRootWord
+}
+VersesWordTraversal(verseIterator).traverse(visitor)
+```
 
 
 
